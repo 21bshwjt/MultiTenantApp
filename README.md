@@ -107,10 +107,6 @@ Create a `.env` file (or update the existing one) with your Entra app registrati
 ```env
 CLIENT_ID=<your-application-client-id>
 CLIENT_SECRET=<your-client-secret>
-TENANT_ID=common
-REDIRECT_URI=http://localhost:3000/redirect
-POST_LOGOUT_REDIRECT_URI=http://localhost:3000
-SESSION_SECRET=<a-strong-random-secret>
 ```
 
 > ⚠️ **Never commit your `.env` file to source control.** Add it to `.gitignore`.
