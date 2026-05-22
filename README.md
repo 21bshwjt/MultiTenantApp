@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/License-ISC-green?style=flat-square"/>
 </p>
 
-<h1 align="center">🔐 Entra ID - Multi Tenant App</h1>
+<h1 align="center">🔐 MultiTenantApp</h1>
 <p align="center">
   A Node.js + Express application demonstrating <strong>Microsoft Entra ID Multi-Tenant Authentication</strong> using MSAL Node.
 </p>
@@ -107,6 +107,10 @@ Create a `.env` file (or update the existing one) with your Entra app registrati
 ```env
 CLIENT_ID=<your-application-client-id>
 CLIENT_SECRET=<your-client-secret>
+TENANT_ID=common
+REDIRECT_URI=http://localhost:3000/redirect
+POST_LOGOUT_REDIRECT_URI=http://localhost:3000
+SESSION_SECRET=<a-strong-random-secret>
 ```
 
 > ⚠️ **Never commit your `.env` file to source control.** Add it to `.gitignore`.
@@ -173,6 +177,39 @@ MultiTenantApp/
 
 ---
 
+## 🛡️ Entra ID App Registration — Required API Permissions
+
+In your **Microsoft Entra ID App Registration**, navigate to **API Permissions** and add the following **Microsoft Graph** delegated permissions:
+
+| Permission | Type | Description |
+|------------|------|-------------|
+| `email` | Delegated | View users' email address |
+| `openid` | Delegated | Sign users in |
+| `profile` | Delegated | View users' basic profile |
+| `User.Read` | Delegated | Sign in and read user profile |
+
+> 💡 After adding permissions, click **"Grant admin consent for Default Directory"** to activate them for your tenant.
+
+### How to Configure
+
+1. Go to [Azure Portal](https://portal.azure.com) → **Microsoft Entra ID** → **App registrations**
+2. Select your app → **API permissions** → **Add a permission**
+3. Choose **Microsoft Graph** → **Delegated permissions**
+4. Search and add: `email`, `openid`, `profile`, `User.Read`
+5. Click **Grant admin consent for Default Directory** ✅
+
+### How These Permissions Map to MSAL Scopes
+
+In `app.js`, request these scopes during login:
+
+```javascript
+const scopes = ["openid", "profile", "email", "User.Read"];
+```
+
+These scopes correspond directly to the four delegated permissions configured above and allow MSAL to retrieve the signed-in user's identity, email, and basic profile from Microsoft Graph.
+
+---
+
 ## 🔒 Security Notes
 
 - Store `CLIENT_SECRET` and `SESSION_SECRET` securely — use **Azure Key Vault** or a secrets manager in production
@@ -194,4 +231,3 @@ MultiTenantApp/
 ## 📄 License
 
 This project is licensed under the **ISC License**.
-
