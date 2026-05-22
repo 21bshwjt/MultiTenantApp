@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/License-ISC-green?style=flat-square"/>
 </p>
 
-<h1 align="center">🔐 MultiTenantApp</h1>
+<h1 align="center">🔐 Entra ID - Multi Tenant App</h1>
 <p align="center">
   A Node.js + Express application demonstrating <strong>Microsoft Entra ID Multi-Tenant Authentication</strong> using MSAL Node.
 </p>
