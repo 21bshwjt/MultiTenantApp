@@ -152,7 +152,8 @@ function loginPage() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign in</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='22 12 18 12 15 21 9 3 6 12 2 12' fill='none' stroke='%2358A6FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <title>BSHWJT Clock App</title>
   ${FONTS}
   ${BASE_CSS}
   <style>
@@ -211,10 +212,10 @@ function loginPage() {
         <div class="brand-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <span class="brand-name">MyApp</span>
+        <span class="brand-name">Biswajit Clock App</span>
       </div>
       <h1>Welcome back</h1>
-      <p class="subtitle">Sign in with your Microsoft account to continue to your dashboard.</p>
+      <p class="subtitle">Sign in with your Microsoft account to continue to Biswajit Clock App.</p>
       <a href="/login" class="ms-btn">
         <svg class="ms-logo" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
           <path fill="#F25022" d="M1 1h10v10H1z"/>
@@ -257,6 +258,7 @@ function successPage(account, idTokenClaims) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='22 12 18 12 15 21 9 3 6 12 2 12' fill='none' stroke='%2358A6FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
   <title>Authenticated — ${account.name}</title>
   ${FONTS}
   ${BASE_CSS}
@@ -311,11 +313,14 @@ function successPage(account, idTokenClaims) {
       text-align: center; transition: background .15s, color .15s;
     }
     .sign-out:hover { background: var(--card-bg); color: var(--text); }
-    .clocks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .clocks-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 12px; }
     .clock-card { background: var(--card-bg); border: 0.5px solid var(--border-weak); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; align-items:center; gap:8px; }
-    .clock-label { font-size: 12px; color: var(--subdued); font-weight:600; letter-spacing: .6px; text-transform:uppercase; }
+    .clock-india { background: rgba(255, 144, 12, 0.12); border-color: #FF900C; }
+    .clock-label { font-size: 12px; color: #00FF00; font-weight:600; letter-spacing: .6px; text-transform:uppercase; }
+    .clock-india .clock-label { color: #FF900C; }
     .clock-time { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); }
-      .clock-date { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+    .clock-delta { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+    .clock-date { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; }
   </style>
 </head>
 <body>
@@ -327,7 +332,7 @@ function successPage(account, idTokenClaims) {
         <div class="brand-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <span class="brand-name">MyApp</span>
+        <span class="brand-name">Biswajit Clock App</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px;position:relative">
         <div class="badge">Authenticated</div>
@@ -344,6 +349,11 @@ function successPage(account, idTokenClaims) {
     </header>
 
     <div class="clocks-grid">
+      <div class="clock-card clock-india">
+        <div class="clock-label">India</div>
+        <div class="clock-time" data-zone="Asia/Kolkata">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Kolkata">--</div>
+      </div>
       <div class="clock-card">
         <div class="clock-label">US</div>
         <div class="clock-time" data-zone="America/New_York">--:--:--</div>
@@ -358,11 +368,6 @@ function successPage(account, idTokenClaims) {
         <div class="clock-label">Japan</div>
         <div class="clock-time" data-zone="Asia/Tokyo">--:--:--</div>
         <div class="clock-date" data-zone="Asia/Tokyo">--</div>
-      </div>
-      <div class="clock-card">
-        <div class="clock-label">India</div>
-        <div class="clock-time" data-zone="Asia/Kolkata">--:--:--</div>
-        <div class="clock-date" data-zone="Asia/Kolkata">--</div>
       </div>
       <div class="clock-card">
         <div class="clock-label">Canada</div>
@@ -388,6 +393,36 @@ function successPage(account, idTokenClaims) {
         <div class="clock-label">Netherlands</div>
         <div class="clock-time" data-zone="Europe/Amsterdam">--:--:--</div>
         <div class="clock-date" data-zone="Europe/Amsterdam">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">China</div>
+        <div class="clock-time" data-zone="Asia/Shanghai">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Shanghai">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Australia</div>
+        <div class="clock-time" data-zone="Australia/Sydney">--:--:--</div>
+        <div class="clock-date" data-zone="Australia/Sydney">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Brazil</div>
+        <div class="clock-time" data-zone="America/Sao_Paulo">--:--:--</div>
+        <div class="clock-date" data-zone="America/Sao_Paulo">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">UTC</div>
+        <div class="clock-time" data-zone="UTC">--:--:--</div>
+        <div class="clock-date" data-zone="UTC">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Singapore</div>
+        <div class="clock-time" data-zone="Asia/Singapore">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Singapore">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Los Angeles</div>
+        <div class="clock-time" data-zone="America/Los_Angeles">--:--:--</div>
+        <div class="clock-date" data-zone="America/Los_Angeles">--</div>
       </div>
     </div>
 
@@ -454,14 +489,70 @@ function successPage(account, idTokenClaims) {
         }catch(e){ return '--'; }
       }
 
+      function parseDateTimeParts(parts){
+        const map = {};
+        parts.forEach(({ type, value }) => {
+          if(type !== 'literal') map[type] = value;
+        });
+        return {
+          year: Number(map.year),
+          month: Number(map.month),
+          day: Number(map.day),
+          hour: Number(map.hour),
+          minute: Number(map.minute),
+          second: Number(map.second),
+        };
+      }
+
+      function zoneOffsetMinutes(now, tz){
+        try{
+          const formatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: tz,
+            hour12: false,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          });
+          const parts = formatter.formatToParts(now);
+          const dt = parseDateTimeParts(parts);
+          return Math.round((Date.UTC(dt.year, dt.month - 1, dt.day, dt.hour, dt.minute, dt.second) - now.getTime()) / 60000);
+        }catch(e){
+          return 0;
+        }
+      }
+
+      function formatDelta(minutes){
+        if(minutes === 0) return '0h';
+        const sign = minutes > 0 ? '+' : '-';
+        const abs = Math.abs(minutes);
+        const hours = Math.floor(abs / 60);
+        const mins = abs % 60;
+        return sign + hours + ':' + String(mins).padStart(2, '0');
+      }
+
       function updateClocks(){
         const now = new Date();
+        const indiaOffset = zoneOffsetMinutes(now, 'Asia/Kolkata');
         document.querySelectorAll('.clock-card').forEach(function(card){
           const timeEl = card.querySelector('.clock-time');
           const dateEl = card.querySelector('.clock-date');
           const tz = timeEl && timeEl.getAttribute('data-zone');
           if(timeEl) timeEl.textContent = fmtTime(now, tz);
           if(dateEl) dateEl.textContent = fmtDate(now, tz);
+
+          if(timeEl){
+            let deltaEl = card.querySelector('.clock-delta');
+            if(!deltaEl){
+              deltaEl = document.createElement('div');
+              deltaEl.className = 'clock-delta';
+              timeEl.insertAdjacentElement('afterend', deltaEl);
+            }
+            const delta = zoneOffsetMinutes(now, tz) - indiaOffset;
+            deltaEl.textContent = 'vs India: ' + formatDelta(delta);
+          }
         });
       }
 
