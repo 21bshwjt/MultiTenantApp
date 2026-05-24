@@ -27,6 +27,7 @@ const msalConfig = {
 const cca = new ConfidentialClientApplication(msalConfig);
 const REDIRECT_URI = "http://localhost:3000/auth/redirect";
 
+
 // ─── HTML Helpers ─────────────────────────────────────────────────────────────
 
 const FONTS = `<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">`;
@@ -310,6 +311,11 @@ function successPage(account, idTokenClaims) {
       text-align: center; transition: background .15s, color .15s;
     }
     .sign-out:hover { background: var(--card-bg); color: var(--text); }
+    .clocks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .clock-card { background: var(--card-bg); border: 0.5px solid var(--border-weak); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .clock-label { font-size: 12px; color: var(--subdued); font-weight:600; letter-spacing: .6px; text-transform:uppercase; }
+    .clock-time { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); }
+      .clock-date { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; }
   </style>
 </head>
 <body>
@@ -336,6 +342,54 @@ function successPage(account, idTokenClaims) {
         </div>
       </div>
     </header>
+
+    <div class="clocks-grid">
+      <div class="clock-card">
+        <div class="clock-label">US</div>
+        <div class="clock-time" data-zone="America/New_York">--:--:--</div>
+        <div class="clock-date" data-zone="America/New_York">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">UK</div>
+        <div class="clock-time" data-zone="Europe/London">--:--:--</div>
+        <div class="clock-date" data-zone="Europe/London">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Japan</div>
+        <div class="clock-time" data-zone="Asia/Tokyo">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Tokyo">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">India</div>
+        <div class="clock-time" data-zone="Asia/Kolkata">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Kolkata">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Canada</div>
+        <div class="clock-time" data-zone="America/Toronto">--:--:--</div>
+        <div class="clock-date" data-zone="America/Toronto">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Africa</div>
+        <div class="clock-time" data-zone="Africa/Johannesburg">--:--:--</div>
+        <div class="clock-date" data-zone="Africa/Johannesburg">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Russia</div>
+        <div class="clock-time" data-zone="Europe/Moscow">--:--:--</div>
+        <div class="clock-date" data-zone="Europe/Moscow">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Bangladesh</div>
+        <div class="clock-time" data-zone="Asia/Dhaka">--:--:--</div>
+        <div class="clock-date" data-zone="Asia/Dhaka">--</div>
+      </div>
+      <div class="clock-card">
+        <div class="clock-label">Netherlands</div>
+        <div class="clock-time" data-zone="Europe/Amsterdam">--:--:--</div>
+        <div class="clock-date" data-zone="Europe/Amsterdam">--</div>
+      </div>
+    </div>
 
     <div class="user-card">
       <div class="avatar">${initials}</div>
@@ -386,6 +440,40 @@ function successPage(account, idTokenClaims) {
   </div>
     <a href="/" class="sign-out">Sign out</a>
   </div>
+  <script>
+    (function(){
+      function fmtTime(now, tz){
+        try{
+          return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz }).format(now);
+        }catch(e){ return '--:--:--'; }
+      }
+
+      function fmtDate(now, tz){
+        try{
+          return new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: tz }).format(now);
+        }catch(e){ return '--'; }
+      }
+
+      function updateClocks(){
+        const now = new Date();
+        document.querySelectorAll('.clock-card').forEach(function(card){
+          const timeEl = card.querySelector('.clock-time');
+          const dateEl = card.querySelector('.clock-date');
+          const tz = timeEl && timeEl.getAttribute('data-zone');
+          if(timeEl) timeEl.textContent = fmtTime(now, tz);
+          if(dateEl) dateEl.textContent = fmtDate(now, tz);
+        });
+      }
+
+      
+
+      document.addEventListener('DOMContentLoaded', function(){
+        updateClocks();
+        setInterval(updateClocks, 1000);
+        
+      });
+    })();
+  </script>
   ${THEME_SCRIPT}
 </body>
 </html>`;
@@ -396,6 +484,9 @@ function successPage(account, idTokenClaims) {
 app.get("/", (req, res) => {
   res.send(loginPage());
 });
+
+// Weather proxy endpoint — requires OPENWEATHER_API_KEY in env
+ 
 
 app.get("/login", async (req, res) => {
   try {
