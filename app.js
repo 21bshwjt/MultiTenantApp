@@ -212,10 +212,10 @@ function loginPage() {
         <div class="brand-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <span class="brand-name">Biswajit Clock App</span>
+        <span class="brand-name">BSHWJT Clock App</span>
       </div>
       <h1>Welcome back</h1>
-      <p class="subtitle">Sign in with your Microsoft account to continue to Biswajit Clock App.</p>
+      <p class="subtitle">Sign in with your Microsoft account to continue to BSHWJT Clock App.</p>
       <a href="/login" class="ms-btn">
         <svg class="ms-logo" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
           <path fill="#F25022" d="M1 1h10v10H1z"/>
@@ -248,7 +248,7 @@ function successPage(account, idTokenClaims) {
     .slice(0, 2)
     .map((n) => n[0].toUpperCase())
     .join("");
-  const authTime  = new Date(idTokenClaims.iat * 1000).toLocaleString();
+  const authTime = new Date(idTokenClaims.iat * 1000).toLocaleString();
   const expiresAt = new Date(idTokenClaims.exp * 1000).toLocaleString();
   const homeTenant = account.homeAccountId.split(".")[1] ?? "N/A";
 
@@ -332,7 +332,7 @@ function successPage(account, idTokenClaims) {
         <div class="brand-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <span class="brand-name">Biswajit Clock App</span>
+        <span class="brand-name">BSHWJT Clock App</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px;position:relative">
         <div class="badge">Authenticated</div>
@@ -577,7 +577,7 @@ app.get("/", (req, res) => {
 });
 
 // Weather proxy endpoint — requires OPENWEATHER_API_KEY in env
- 
+
 
 app.get("/login", async (req, res) => {
   try {
