@@ -19,7 +19,7 @@ app.use(
 const msalConfig = {
   auth: {
     clientId: process.env.CLIENT_ID,
-    authority: "https://login.microsoftonline.com/common",
+    authority: "https://login.microsoftonline.com/organizations",
     clientSecret: process.env.CLIENT_SECRET,
   },
 };
